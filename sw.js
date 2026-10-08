@@ -1,7 +1,7 @@
 /* පහේ හපන්නු — offline service worker.
    When the app is updated, change VERSION (e.g. v2, v3) so phones download the new files.
    Progress is kept in localStorage and is NOT affected by updates. */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'phh-' + VERSION;
 const FILES = [
   '/', '/index.html', '/manifest.json', '/privacy.html', '/favicon.png',
@@ -10,7 +10,7 @@ const FILES = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(u => new Request(u, {cache: 'reload'})))).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
